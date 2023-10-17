@@ -1,14 +1,19 @@
 import { Sphere, Cone, Torus } from "@react-three/drei";
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
+import { useTexture } from "@react-three/drei";
 
 const Shapes = () =>{
+    const PATH = "/assets/textures/fabric/";
     const [time, setTime] = useState(0);
 
     const sphereRef = useRef();
     const coneRef = useRef();
     const torusRef = useRef();
 
+    const propsTexture = useTexture({
+        map: PATH + "fabricIn.png",
+    })
     useFrame(() => {
 
         const orbitRadius = 2;
@@ -45,7 +50,7 @@ const Shapes = () =>{
             </Sphere>
 
             <Cone ref={coneRef} args={[0.8, 2, 20]} position={[0, 1, 1]}>
-                <meshMatcapMaterial color={"cyan"}/>
+                <meshMatcapMaterial {...propsTexture}/>
             </Cone>
 
             <Torus ref={torusRef} args={[1, 0.5, 8, 100]} position={[1, 3, 2]}>
